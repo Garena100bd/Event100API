@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package splash;
+
+message UpdateItem {
+  string Banner = 5;
+  string Details = 9;
+  int64 Start = 10;
+  int64 End = 11;
+  string Title = 3;
+  string Link = 8;
+  string LinkAlt = 20;
+}
+
+message UpdateSection {
+  repeated UpdateItem items = 1;
+}
+
+message EventItem {
+  string Banner = 14;
+  int64 Start = 6;
+  int64 End = 7;
+  string Title = 4;
+  string TitleAlt = 3;
+  string Link = 12;
+}
+
+message EventSection {
+  repeated EventItem items = 1;
+}
+
+message SplashResponse {
+  UpdateSection updates = 1;
+  EventSection events = 2;
+}
