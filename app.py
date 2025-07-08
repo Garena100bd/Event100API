@@ -107,7 +107,7 @@ async def fetch_token(region: str) -> Dict:
     if not credentials:
         raise ValueError(f"No credentials for region: {region}")
     
-    url = f"https://akiru-jwt-2-bpwh.vercel.app/api/get_jwt?guest_uid={credentials['uid']}&guest_password={credentials['password']}"
+    url = f"https://atx-jwt-pi.vercel.app/token?uid={credentials['uid']}&guest_password={credentials['password']}"
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             response.raise_for_status()
