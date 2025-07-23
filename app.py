@@ -19,61 +19,21 @@ IV = os.getenv('AES_IV', '6oyZDr22E3ychjM%').encode()
 
 # Account credentials
 ACCOUNTS = {
-    'IND': {
-        'uid': '3930873969',
-        'password': 'A7C2C6D4626074C70B978141C03D39350887BD4928D5E7CC9D86BE8B22269BC0'
-    },
-    'SG': {
-        'uid': '3158350464',
-        'password': '70EA041FCF79190E3D0A8F3CA95CAAE1F39782696CE9D85C2CCD525E28D223FC'
-    },
-    'RU': {
-        'uid': '3301239795',
-        'password': 'DD40EE772FCBD61409BB15033E3DE1B1C54EDA83B75DF0CDD24C34C7C8798475'
-    },
-    'ID': {
-        'uid': '3301269321',
-        'password': 'D11732AC9BBED0DED65D0FED7728CA8DFF408E174202ECF1939E328EA3E94356'
-    },
-    'TW': {
-        'uid': '3301329477',
-        'password': '359FB179CD92C9C1A2A917293666B96972EF8A5FC43B5D9D61A2434DD3D7D0BC'
-    },
-    'US': {
-        'uid': '3301387397',
-        'password': 'BAC03CCF677F8772473A09870B6228ADFBC1F503BF59C8D05746DE451AD67128'
-    },
-    'VN': {
-        'uid': '3301447047',
-        'password': '044714F5B9284F3661FB09E4E9833327488B45255EC9E0CCD953050E3DEF1F54'
-    },
-    'TH': {
-        'uid': '3301470613',
-        'password': '39EFD9979BD6E9CCF6CBFF09F224C4B663E88B7093657CB3D4A6F3615DDE057A'
-    },
-    'ME': {
-        'uid': '3301535568',
-        'password': 'BEC9F99733AC7B1FB139DB3803F90A7E78757B0BE395E0A6FE3A520AF77E0517'
-    },
-    'PK': {
-        'uid': '3301828218',
-        'password': '3A0E972E57E9EDC39DC4830E3D486DBFB5DA7C52A4E8B0B8F3F9DC4450899571'
-    },
-    'CIS': {
-        'uid': '3309128798',
-        'password': '412F68B618A8FAEDCCE289121AC4695C0046D2E45DB07EE512B4B3516DDA8B0F'
-    },
-    'BR': {
-        'uid': '3158668455',
-        'password': '44296D19343151B25DE68286BDC565904A0DA5A5CC5E96B7A7ADBE7C11E07933'
-    },
-    'BD': {
-        'uid': '4019945507',
-        'password': 'C812B81009FF4DF135D4DC19883C0FAA887AD2CB489306BBFE5DB7C5703B5B61'
-    }
+    'IND': {'uid': '3930873969', 'password': 'A7C2C6D4626074C70B978141C03D39350887BD4928D5E7CC9D86BE8B22269BC0'},
+    'SG': {'uid': '3158350464', 'password': '70EA041FCF79190E3D0A8F3CA95CAAE1F39782696CE9D85C2CCD525E28D223FC'},
+    'RU': {'uid': '3301239795', 'password': 'DD40EE772FCBD61409BB15033E3DE1B1C54EDA83B75DF0CDD24C34C7C8798475'},
+    'ID': {'uid': '3301269321', 'password': 'D11732AC9BBED0DED65D0FED7728CA8DFF408E174202ECF1939E328EA3E94356'},
+    'TW': {'uid': '3301329477', 'password': '359FB179CD92C9C1A2A917293666B96972EF8A5FC43B5D9D61A2434DD3D7D0BC'},
+    'US': {'uid': '3301387397', 'password': 'BAC03CCF677F8772473A09870B6228ADFBC1F503BF59C8D05746DE451AD67128'},
+    'VN': {'uid': '3301447047', 'password': '044714F5B9284F3661FB09E4E9833327488B45255EC9E0CCD953050E3DEF1F54'},
+    'TH': {'uid': '3301470613', 'password': '39EFD9979BD6E9CCF6CBFF09F224C4B663E88B7093657CB3D4A6F3615DDE057A'},
+    'ME': {'uid': '3301535568', 'password': 'BEC9F99733AC7B1FB139DB3803F90A7E78757B0BE395E0A6FE3A520AF77E0517'},
+    'PK': {'uid': '3301828218', 'password': '3A0E972E57E9EDC39DC4830E3D486DBFB5DA7C52A4E8B0B8F3F9DC4450899571'},
+    'CIS': {'uid': '3309128798', 'password': '412F68B618A8FAEDCCE289121AC4695C0046D2E45DB07EE512B4B3516DDA8B0F'},
+    'BR': {'uid': '3158668455', 'password': '44296D19343151B25DE68286BDC565904A0DA5A5CC5E96B7A7ADBE7C11E07933'},
+    'BD': {'uid': '4019945507', 'password': 'C812B81009FF4DF135D4DC19883C0FAA887AD2CB489306BBFE5DB7C5703B5B61'}
 }
 
-# Server URLs
 REGION_URLS = {
     "IND": "https://client.ind.freefiremobile.com/LoginGetSplash",
     "ID": "https://clientbp.ggblueshark.com/LoginGetSplash",
@@ -107,16 +67,16 @@ async def fetch_token(region: str) -> Dict:
     if not credentials:
         raise ValueError(f"No credentials for region: {region}")
     
-    url = f"https://akiru-jwt-2-bpwh.vercel.app/api/get_jwt?guest_uid={credentials['uid']}&guest_password={credentials['password']}"
+    url = f"https://garena100gwtapi.vercel.app/token?uid={credentials['uid']}&password={credentials['password']}"
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             response.raise_for_status()
             data = await response.json()
-            if not data.get('success'):
+            if not data.get('token'):
                 raise ValueError("Failed to get JWT token")
             return {
-                'token': data['BearerAuth'],
-                'lockRegion': region  # Assuming region is locked to requested region
+                'token': data['token'],
+                'lockRegion': data.get('region', region)
             }
 
 def build_payload(lang: str = "en") -> bytes:
@@ -141,7 +101,6 @@ def transform(proto_resp, requested_region: str, served_region: str) -> Dict:
     def is_valid_link(link: str) -> bool:
         return link.strip().startswith(('http://', 'https://')) and len(link.strip()) > 10
 
-    # Add updates with type 'update'
     for item in proto_resp.updates.items:
         upd = {
             "Banner": item.Banner,
@@ -156,7 +115,6 @@ def transform(proto_resp, requested_region: str, served_region: str) -> Dict:
                 break
         out["events"].append(upd)
 
-    # Add events with type 'event'
     for item in proto_resp.events.items:
         evt = {
             "Banner": item.Banner,
