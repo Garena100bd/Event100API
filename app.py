@@ -59,6 +59,7 @@ def get_account_credentials(region: str) -> Optional[Dict]:
 def get_server_url(region: str) -> Optional[str]:
     return REGION_URLS.get(region.upper())
 
+# ✅ Updated API URL used here
 async def fetch_token(region: str) -> Dict:
     if region not in VALID_REGIONS:
         raise ValueError(f"Invalid region: {region}")
@@ -67,7 +68,7 @@ async def fetch_token(region: str) -> Dict:
     if not credentials:
         raise ValueError(f"No credentials for region: {region}")
     
-    url = f"https://garena100gwtapi.vercel.app/token?uid={credentials['uid']}&password={credentials['password']}"
+    url = f"https://garenaunlimitedgwt.vercel.app/token?uid={credentials['uid']}&password={credentials['password']}"
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             response.raise_for_status()
@@ -76,7 +77,7 @@ async def fetch_token(region: str) -> Dict:
                 raise ValueError("Failed to get JWT token")
             return {
                 'token': data['token'],
-                'lockRegion': data.get('region', region)
+                'lockRegion': data.get('server', region)  # 'server' used in new API instead of 'region'
             }
 
 def build_payload(lang: str = "en") -> bytes:
