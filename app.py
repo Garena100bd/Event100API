@@ -160,7 +160,7 @@ def get_event_data():
             "Expect": "100-continue",
             "X-Unity-Version": "2018.4.11f1",
             "X-GA": "v1 1",
-            "ReleaseVersion": "OB49"
+            "ReleaseVersion": "OB50"
         }
 
         payload = build_payload(lang)
